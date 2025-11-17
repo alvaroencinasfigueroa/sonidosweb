@@ -1,12 +1,259 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonidos Web</title>
+    <title>Sonidos Web - Descarga tus aplicaciones</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<h1>¡Bienvenido a Sonidos Web!</h1>
-<p>La aplicación está funcionando correctamente.</p>
+<!-- Header/Navbar -->
+<header class="header">
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-volume-up"></i>
+                <span>Sonidos Web</span>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-outline" onclick="openLoginModal()">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+                <button class="btn btn-primary" onclick="openRegisterModal()">
+                    <i class="fas fa-user-plus"></i> Registrarse
+                </button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Descarga tus <span class="highlight">Aplicaciones de Sonido</span>
+            </h1>
+            <p class="hero-subtitle">
+                Accede a nuestras aplicaciones premium para Android y Escritorio.
+                Gestiona tus sonidos de forma profesional.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn btn-large btn-primary" onclick="openRegisterModal()">
+                    Comenzar Ahora <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-large btn-outline" onclick="scrollToFeatures()">
+                    Ver Características
+                </button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <i class="fas fa-mobile-alt app-icon"></i>
+            <i class="fas fa-desktop app-icon"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <h2 class="section-title">Características Principales</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Aplicación Android</h3>
+                <p>Lleva tus sonidos a donde vayas con nuestra app para Android</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h3>Aplicación Escritorio</h3>
+                <p>Potente herramienta para Windows, Mac y Linux</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-download-alt"></i>
+                </div>
+                <h3>Descargas Ilimitadas</h3>
+                <p>Descarga en todos tus dispositivos sin límites</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Actualizaciones Gratis</h3>
+                <p>Recibe todas las actualizaciones sin costo adicional</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Downloads Section -->
+<section class="downloads" id="downloads">
+    <div class="container">
+        <h2 class="section-title">Descarga Nuestras Aplicaciones</h2>
+        <p class="section-subtitle">Regístrate y obtén acceso inmediato a todas las versiones</p>
+
+        <div class="downloads-grid">
+            <!-- Android Card -->
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fab fa-android"></i>
+                </div>
+                <h3>Android</h3>
+                <p>Compatible con Android 8.0 o superior</p>
+                <div class="download-price">$9.99 USD</div>
+                <button class="btn btn-download locked" onclick="showLoginRequired()">
+                    <i class="fas fa-lock"></i> Descargar Android
+                </button>
+                <small class="download-note">Requiere cuenta y pago</small>
+            </div>
+
+            <!-- Desktop Card -->
+            <div class="download-card">
+                <div class="download-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3>Escritorio</h3>
+                <p>Windows, Mac, Linux</p>
+                <div class="download-price">$14.99 USD</div>
+                <button class="btn btn-download locked" onclick="showLoginRequired()">
+                    <i class="fas fa-lock"></i> Descargar Escritorio
+                </button>
+                <small class="download-note">Requiere cuenta y pago</small>
+            </div>
+
+            <!-- Bundle Card (Popular) -->
+            <div class="download-card popular">
+                <div class="popular-badge">Más Popular</div>
+                <div class="download-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Pack Completo</h3>
+                <p>Android + Escritorio</p>
+                <div class="download-price">
+                    <span class="old-price">$24.98</span>
+                    $19.99 USD
+                </div>
+                <button class="btn btn-download btn-primary locked" onclick="showLoginRequired()">
+                    <i class="fas fa-lock"></i> Comprar Pack Completo
+                </button>
+                <small class="download-note">Ahorra $5 con el pack</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-volume-up"></i>
+                <span>Sonidos Web</span>
+            </div>
+            <p>&copy; 2025 Sonidos Web. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeLoginModal()">&times;</span>
+        <h2 class="modal-title">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+        </h2>
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <label for="loginEmail">
+                    <i class="fas fa-envelope"></i> Correo Electrónico
+                </label>
+                <input type="email" id="loginEmail" name="email" required
+                       placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">
+                    <i class="fas fa-lock"></i> Contraseña
+                </label>
+                <input type="password" id="loginPassword" name="password" required
+                       placeholder="••••••••">
+            </div>
+            <div class="form-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember">
+                    Recordarme
+                </label>
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                Iniciar Sesión
+            </button>
+            <div class="form-footer">
+                ¿No tienes cuenta?
+                <a href="#" onclick="switchToRegister()">Regístrate aquí</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
+        <h2 class="modal-title">
+            <i class="fas fa-user-plus"></i> Crear Cuenta
+        </h2>
+        <form id="registerForm" class="auth-form">
+            <div class="form-group">
+                <label for="registerName">
+                    <i class="fas fa-user"></i> Nombre Completo
+                </label>
+                <input type="text" id="registerName" name="name" required
+                       placeholder="Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">
+                    <i class="fas fa-envelope"></i> Correo Electrónico
+                </label>
+                <input type="email" id="registerEmail" name="email" required
+                       placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">
+                    <i class="fas fa-lock"></i> Contraseña
+                </label>
+                <input type="password" id="registerPassword" name="password" required
+                       placeholder="Mínimo 8 caracteres">
+            </div>
+            <div class="form-group">
+                <label for="registerConfirmPassword">
+                    <i class="fas fa-lock"></i> Confirmar Contraseña
+                </label>
+                <input type="password" id="registerConfirmPassword" name="confirmPassword" required
+                       placeholder="Repite tu contraseña">
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="terms" required>
+                    Acepto los términos y condiciones
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                Crear Cuenta
+            </button>
+            <div class="form-footer">
+                ¿Ya tienes cuenta?
+                <a href="#" onclick="switchToLogin()">Inicia sesión aquí</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>
