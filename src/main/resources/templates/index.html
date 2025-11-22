@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonidos Web - Descarga tus aplicaciones</title>
+    <title th:text="#{nav.logo} + ' - ' + #{hero.title}">Sonidos Web</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset y Variables */
+        /* =========================================
+           1. VARIABLES Y RESET (DISEÑO ELEGANTE)
+           ========================================= */
         * {
             margin: 0;
             padding: 0;
@@ -14,23 +16,22 @@
         }
 
         :root {
-            /* NUEVA PALETA DE COLORES ELEGANTE (Rojo Vino / Negro) */
             --primary-color: #991b1b; /* Rojo vino profundo */
-            --primary-dark: #7f1d1d;  /* Un tono más oscuro para hover */
-            --secondary-color: #c5a47e; /* Un tono dorado/beige para acentos elegantes */
-            --success-color: #065f46; /* Verde esmeralda oscuro */
-            --danger-color: #b91c1c;  /* Rojo intenso para errores */
+            --primary-dark: #7f1d1d;
+            --secondary-color: #c5a47e; /* Dorado/Beige */
+            --success-color: #065f46;
+            --danger-color: #b91c1c;
 
-            --dark: #111827;       /* Negro casi puro para textos principales y footer */
-            --dark-light: #374151; /* Gris oscuro */
-            --gray: #6b7280;       /* Gris medio para textos secundarios */
-            --gray-light: #d1d5db; /* Gris claro para bordes */
-            --bg-light: #f3f4f6;   /* Fondo gris muy claro, casi blanco */
+            --dark: #111827;       /* Negro casi puro */
+            --dark-light: #374151;
+            --gray: #6b7280;
+            --gray-light: #d1d5db;
+            --bg-light: #f3f4f6;
             --white: #ffffff;
 
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15); /* Sombras un poco más marcadas */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-            --border-radius: 8px; /* Bordes un poco menos redondeados para mayor seriedad */
+            --border-radius: 8px;
             --transition: all 0.3s ease;
         }
 
@@ -38,7 +39,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            background-color: var(--bg-light); /* Fondo general ligeramente gris */
+            background-color: var(--bg-light);
         }
 
         .container {
@@ -47,14 +48,16 @@
             padding: 0 20px;
         }
 
-        /* Header/Navbar */
+        /* =========================================
+           2. HEADER Y NAVBAR
+           ========================================= */
         .header {
             background: var(--white);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 2px solid var(--primary-color); /* Línea roja elegante debajo del menú */
+            border-bottom: 2px solid var(--primary-color);
         }
 
         .navbar {
@@ -74,10 +77,12 @@
             font-size: 1.5rem;
             font-weight: bold;
             color: var(--primary-color);
+            text-decoration: none;
         }
 
-        .logo i {
-            font-size: 1.8rem;
+        .nav-right {
+            display: flex;
+            align-items: center;
         }
 
         .nav-buttons {
@@ -85,7 +90,43 @@
             gap: 1rem;
         }
 
-        /* Buttons */
+        /* ESTILOS DEL SELECTOR DE IDIOMA */
+        .lang-switch {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-right: 1px solid var(--gray-light);
+            padding-right: 1rem;
+        }
+
+        .lang-btn {
+            text-decoration: none;
+            color: var(--gray);
+            padding: 0.2rem 0.5rem;
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Clase activa para el idioma seleccionado */
+        .lang-btn.active {
+            color: var(--primary-color);
+            font-weight: 800;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .separator {
+            color: var(--gray-light);
+            margin: 0 2px;
+        }
+
+        /* =========================================
+           3. BOTONES
+           ========================================= */
         .btn {
             padding: 0.75rem 1.5rem;
             border: none;
@@ -98,7 +139,7 @@
             align-items: center;
             gap: 0.5rem;
             text-decoration: none;
-            letter-spacing: 0.5px; /* Un poco de espaciado para elegancia */
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
@@ -146,17 +187,18 @@
         }
 
         .btn-download.locked {
-            background: var(--dark-light); /* Bloqueado ahora es gris oscuro */
+            background: var(--dark-light);
         }
 
         .btn-download.locked:hover {
             background: var(--primary-color);
         }
 
-        /* Hero Section - CAMBIO IMPORTANTE DE GRADIENTE */
+        /* =========================================
+           4. HERO SECTION
+           ========================================= */
         .hero {
-            padding: 8rem 0; /* Un poco más alto para impacto */
-            /* Gradiente elegante de Rojo profundo a Negro */
+            padding: 8rem 0;
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark) 100%);
             color: var(--white);
         }
@@ -172,12 +214,11 @@
             font-size: 3.5rem;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            font-weight: 800; /* Más grueso */
+            font-weight: 800;
         }
 
         .highlight {
-            color: var(--secondary-color); /* Usamos el color dorado para el resaltado */
-            position: relative;
+            color: var(--secondary-color);
         }
 
         .hero-subtitle {
@@ -193,7 +234,6 @@
             flex-wrap: wrap;
         }
 
-        /* Estilo diferente para el botón outline en el hero oscuro */
         .hero .btn-outline {
             color: var(--secondary-color);
             border-color: var(--secondary-color);
@@ -208,7 +248,7 @@
             justify-content: center;
             align-items: center;
             gap: 3rem;
-            color: var(--secondary-color); /* Iconos dorados en el hero */
+            color: var(--secondary-color);
         }
 
         .app-icon {
@@ -227,10 +267,12 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Features Section */
+        /* =========================================
+           5. FEATURES SECTION
+           ========================================= */
         .features {
             padding: 6rem 0;
-            background: var(--white); /* Fondo blanco para contraste */
+            background: var(--white);
         }
 
         .section-title {
@@ -241,13 +283,6 @@
             font-weight: 700;
         }
 
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 3rem;
-        }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -255,26 +290,25 @@
         }
 
         .feature-card {
-            background: var(--bg-light); /* Tarjetas gris claro */
+            background: var(--bg-light);
             padding: 2.5rem 2rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             text-align: center;
             transition: var(--transition);
-            border-bottom: 3px solid transparent; /* Preparar para hover */
+            border-bottom: 3px solid transparent;
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-lg);
-            border-bottom-color: var(--primary-color); /* Línea roja al pasar el mouse */
+            border-bottom-color: var(--primary-color);
         }
 
         .feature-icon {
             width: 80px;
             height: 80px;
             margin: 0 auto 1.5rem;
-            /* Gradiente de Rojo a Dorado */
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 50%;
             display: flex;
@@ -295,27 +329,36 @@
             color: var(--gray);
         }
 
-        /* Downloads Section */
+        /* =========================================
+           6. DOWNLOADS SECTION
+           ========================================= */
         .downloads {
             padding: 6rem 0;
             background-color: var(--bg-light);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            display: block;
         }
 
         .downloads-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
         .download-card {
             background: var(--white);
-            padding: 3rem 2.5rem; /* Más padding */
+            padding: 3rem 2.5rem;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             text-align: center;
             position: relative;
-            border: 2px solid var(--gray-light); /* Borde sutil por defecto */
+            border: 2px solid var(--gray-light);
             transition: var(--transition);
         }
 
@@ -325,10 +368,8 @@
             box-shadow: var(--shadow-lg);
         }
 
-        /* Tarjeta Popular - Cambio de fondo */
         .download-card.popular {
             border-color: var(--primary-color);
-            /* Fondo degradado sutil cálido en lugar de azul */
             background: linear-gradient(135deg, #ffffff 0%, #f8f5f0 100%);
         }
 
@@ -373,7 +414,7 @@
         }
 
         .download-price {
-            font-size: 3rem; /* Precio más grande */
+            font-size: 3rem;
             font-weight: 800;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
@@ -396,13 +437,15 @@
             font-size: 0.9rem;
         }
 
-        /* Footer */
+        /* =========================================
+           7. FOOTER & MODALS
+           ========================================= */
         .footer {
             background: var(--dark);
-            color: var(--gray-light); /* Texto más claro */
+            color: var(--gray-light);
             padding: 4rem 0;
             text-align: center;
-            border-top: 3px solid var(--primary-color); /* Línea roja superior */
+            border-top: 3px solid var(--primary-color);
         }
 
         .footer-logo {
@@ -416,11 +459,9 @@
             color: var(--white);
         }
 
-        .footer-logo i {
-            color: var(--primary-color);
-        }
+        .footer-logo i { color: var(--primary-color); }
 
-        /* Modal */
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -429,8 +470,8 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo más oscuro */
-            backdrop-filter: blur(8px); /* Más desenfoque */
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
             animation: fadeIn 0.3s ease;
         }
 
@@ -440,10 +481,7 @@
             justify-content: center;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .modal-content {
             background: var(--white);
@@ -456,7 +494,7 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: var(--shadow-lg);
-            border-top: 5px solid var(--primary-color); /* Toque de color en el modal */
+            border-top: 5px solid var(--primary-color);
         }
 
         @keyframes slideUp {
@@ -474,9 +512,7 @@
             transition: var(--transition);
         }
 
-        .modal-close:hover {
-            color: var(--primary-color);
-        }
+        .modal-close:hover { color: var(--primary-color); }
 
         .modal-title {
             font-size: 2rem;
@@ -488,34 +524,19 @@
             font-weight: 700;
         }
 
-        .modal-title i {
-            color: var(--primary-color);
-        }
+        .modal-title i { color: var(--primary-color); }
 
-        /* Forms */
-        .auth-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+        .auth-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
 
         .form-group label {
             font-weight: 600;
             color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             font-size: 0.95rem;
         }
 
         .form-group input {
-            padding: 1rem; /* Inputs más grandes */
+            padding: 1rem;
             border: 2px solid var(--gray-light);
             border-radius: var(--border-radius);
             font-size: 1rem;
@@ -531,107 +552,64 @@
         }
 
         .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: var(--gray);
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.9rem; color: var(--gray);
         }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            font-weight: normal;
-        }
-
-        .forgot-password {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-            color: var(--primary-dark);
-        }
+        .checkbox-label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+        .forgot-password { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+        .forgot-password:hover { text-decoration: underline; }
 
         .form-footer {
-            text-align: center;
-            color: var(--gray);
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
+            text-align: center; color: var(--gray);
+            margin-top: 1.5rem; padding-top: 1.5rem;
             border-top: 1px solid var(--gray-light);
         }
 
         .form-footer a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 700;
-            margin-left: 0.5rem;
+            color: var(--primary-color); text-decoration: none; font-weight: 700; margin-left: 0.5rem;
         }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
+        .form-footer a:hover { text-decoration: underline; }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-image {
-                display: none; /* Opcional: Ocultar en móviles si ocupa mucho espacio */
-            }
-
-            .hero-title {
-                font-size: 2.8rem;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .features-grid,
-            .downloads-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-content {
-                padding: 2rem;
-                width: 95%;
-            }
-
-            .download-price {
-                font-size: 2.5rem;
-            }
+            .hero .container { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-image { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .navbar .container { flex-direction: column; gap: 1rem; }
+            .nav-right { flex-direction: column; gap: 1rem; }
+            .lang-switch { margin-right: 0; border-right: none; border-bottom: 1px solid var(--gray-light); padding-bottom: 0.5rem; padding-right: 0; }
+            .features-grid, .downloads-grid { grid-template-columns: 1fr; }
+            .modal-content { padding: 2rem; width: 95%; }
         }
     </style>
 </head>
 <body>
+
 <header class="header">
     <nav class="navbar">
         <div class="container">
-            <div class="logo">
+            <a href="/" class="logo">
                 <i class="fas fa-volume-up"></i>
-                <span>Sonidos Web</span>
-            </div>
-            <div class="nav-buttons">
-                <button class="btn btn-outline" onclick="openLoginModal()">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                </button>
-                <button class="btn btn-primary" onclick="openRegisterModal()">
-                    <i class="fas fa-user-plus"></i> Registrarse
-                </button>
+                <span th:text="#{nav.logo}">Sonidos Web</span>
+            </a>
+
+            <div class="nav-right">
+                <div class="lang-switch">
+                    <a href="?lang=es" class="lang-btn" th:classappend="${#locale.language == 'es'} ? 'active' : ''">ES</a>
+                    <span class="separator">|</span>
+                    <a href="?lang=en" class="lang-btn" th:classappend="${#locale.language == 'en'} ? 'active' : ''">EN</a>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="openLoginModal()">
+                        <i class="fas fa-sign-in-alt"></i> <span th:text="#{nav.login}">Iniciar Sesión</span>
+                    </button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">
+                        <i class="fas fa-user-plus"></i> <span th:text="#{nav.register}">Registrarse</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -641,18 +619,18 @@
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Descarga tus <span class="highlight">Aplicaciones de Sonido</span>
+                <span th:text="#{hero.title}">Descarga tus</span>
+                <span class="highlight" th:text="#{hero.title.highlight}">Aplicaciones de Sonido</span>
             </h1>
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" th:text="#{hero.subtitle}">
                 Accede a nuestras aplicaciones premium para Android y Escritorio.
-                Gestiona tus sonidos de forma profesional y elegante.
             </p>
             <div class="hero-buttons">
                 <button class="btn btn-large btn-primary" onclick="openRegisterModal()">
-                    Comenzar Ahora <i class="fas fa-arrow-right"></i>
+                    <span th:text="#{hero.btn.start}">Comenzar Ahora</span> <i class="fas fa-arrow-right"></i>
                 </button>
                 <button class="btn btn-large btn-outline" onclick="scrollToFeatures()">
-                    Ver Características
+                    <span th:text="#{hero.btn.features}">Ver Características</span>
                 </button>
             </div>
         </div>
@@ -665,35 +643,27 @@
 
 <section class="features" id="features">
     <div class="container">
-        <h2 class="section-title">Características Principales</h2>
+        <h2 class="section-title" th:text="#{features.title}">Características Principales</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Aplicación Android</h3>
-                <p>Lleva tus sonidos a donde vayas con nuestra app diseñada para profesionales.</p>
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3 th:text="#{features.card1.title}">Aplicación Android</h3>
+                <p th:text="#{features.card1.desc}">Descripción Android</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-desktop"></i>
-                </div>
-                <h3>Aplicación Escritorio</h3>
-                <p>Potente herramienta de gestión para Windows, Mac y Linux.</p>
+                <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                <h3 th:text="#{features.card2.title}">Aplicación Escritorio</h3>
+                <p th:text="#{features.card2.desc}">Descripción Escritorio</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-cloud-download-alt"></i>
-                </div>
-                <h3>Descargas Ilimitadas</h3>
-                <p>Acceso sin restricciones a toda tu biblioteca en cualquier dispositivo.</p>
+                <div class="feature-icon"><i class="fas fa-cloud-download-alt"></i></div>
+                <h3 th:text="#{features.card3.title}">Descargas Ilimitadas</h3>
+                <p th:text="#{features.card3.desc}">Descripción Descargas</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-                <h3>Soporte Premium</h3>
-                <p>Actualizaciones constantes y soporte técnico prioritario incluido.</p>
+                <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3 th:text="#{features.card4.title}">Soporte Premium</h3>
+                <p th:text="#{features.card4.desc}">Descripción Soporte</p>
             </div>
         </div>
     </div>
@@ -701,51 +671,45 @@
 
 <section class="downloads" id="downloads">
     <div class="container">
-        <h2 class="section-title">Planes de Acceso</h2>
-        <p class="section-subtitle">Regístrate y selecciona la licencia que mejor se adapte a tus necesidades.</p>
+        <h2 class="section-title" th:text="#{downloads.title}">Planes de Acceso</h2>
+        <p class="section-subtitle" th:text="#{downloads.subtitle}">Subtitulo planes</p>
 
         <div class="downloads-grid">
             <div class="download-card">
-                <div class="download-icon">
-                    <i class="fab fa-android"></i>
-                </div>
-                <h3>Licencia Android</h3>
-                <p>Para dispositivos móviles y tablets</p>
+                <div class="download-icon"><i class="fab fa-android"></i></div>
+                <h3 th:text="#{downloads.card1.title}">Licencia Android</h3>
+                <p th:text="#{downloads.card1.platform}">Plataforma</p>
                 <div class="download-price">$9.99 <small>USD</small></div>
                 <button class="btn btn-download locked" onclick="showLoginRequired()">
-                    <i class="fas fa-lock"></i> Adquirir Licencia
+                    <i class="fas fa-lock"></i> <span th:text="#{downloads.card1.btn}">Adquirir</span>
                 </button>
-                <small class="download-note">Pago único. Requiere cuenta.</small>
+                <small class="download-note" th:text="#{downloads.card1.note}">Nota</small>
             </div>
 
             <div class="download-card">
-                <div class="download-icon">
-                    <i class="fas fa-laptop"></i>
-                </div>
-                <h3>Licencia Escritorio</h3>
-                <p>Windows, macOS y Linux</p>
+                <div class="download-icon"><i class="fas fa-laptop"></i></div>
+                <h3 th:text="#{downloads.card2.title}">Licencia Escritorio</h3>
+                <p th:text="#{downloads.card2.platform}">Plataforma</p>
                 <div class="download-price">$14.99 <small>USD</small></div>
                 <button class="btn btn-download locked" onclick="showLoginRequired()">
-                    <i class="fas fa-lock"></i> Adquirir Licencia
+                    <i class="fas fa-lock"></i> <span th:text="#{downloads.card2.btn}">Adquirir</span>
                 </button>
-                <small class="download-note">Pago único. Requiere cuenta.</small>
+                <small class="download-note" th:text="#{downloads.card2.note}">Nota</small>
             </div>
 
             <div class="download-card popular">
-                <div class="popular-badge">Recomendado</div>
-                <div class="download-icon">
-                    <i class="fas fa-star"></i>
-                </div>
-                <h3>Pack Profesional</h3>
-                <p>Todas las plataformas incluidas</p>
+                <div class="popular-badge" th:text="#{downloads.card3.badge}">Recomendado</div>
+                <div class="download-icon"><i class="fas fa-star"></i></div>
+                <h3 th:text="#{downloads.card3.title}">Pack Profesional</h3>
+                <p th:text="#{downloads.card3.platform}">Plataforma</p>
                 <div class="download-price">
                     <span class="old-price">$24.98</span>
                     $19.99 <small>USD</small>
                 </div>
                 <button class="btn btn-download btn-primary locked" onclick="showLoginRequired()">
-                    <i class="fas fa-lock"></i> Adquirir Pack Completo
+                    <i class="fas fa-lock"></i> <span th:text="#{downloads.card3.btn}">Adquirir Pack</span>
                 </button>
-                <small class="download-note">Ahorro del 20%. La mejor opción.</small>
+                <small class="download-note" th:text="#{downloads.card3.note}">Nota</small>
             </div>
         </div>
     </div>
@@ -756,9 +720,9 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <i class="fas fa-volume-up"></i>
-                <span>Sonidos Web</span>
+                <span th:text="#{nav.logo}">Sonidos Web</span>
             </div>
-            <p>&copy; 2025 Sonidos Web. Todos los derechos reservados. Diseño elegante.</p>
+            <p th:text="#{footer.rights}">&copy; 2025 Sonidos Web.</p>
         </div>
     </div>
 </footer>
@@ -767,36 +731,31 @@
     <div class="modal-content">
         <span class="modal-close" onclick="closeLoginModal()">&times;</span>
         <h2 class="modal-title">
-            <i class="fas fa-sign-in-alt"></i> Acceder
+            <i class="fas fa-sign-in-alt"></i> <span th:text="#{modal.login.title}">Acceder</span>
         </h2>
-        <form id="loginForm" class="auth-form">
+        <form id="loginForm" class="auth-form" th:action="@{/login}" method="post">
             <div class="form-group">
-                <label for="loginEmail">
-                    Correo Electrónico
-                </label>
-                <input type="email" id="loginEmail" name="email" required
-                       placeholder="ejemplo@correo.com">
+                <label for="loginEmail" th:text="#{form.email}">Correo</label>
+                <input type="email" id="loginEmail" name="username" required
+                       th:placeholder="#{form.email}">
             </div>
             <div class="form-group">
-                <label for="loginPassword">
-                    Contraseña
-                </label>
+                <label for="loginPassword" th:text="#{form.password}">Contraseña</label>
                 <input type="password" id="loginPassword" name="password" required
-                       placeholder="••••••••">
+                       th:placeholder="#{form.password}">
             </div>
             <div class="form-options">
                 <label class="checkbox-label">
                     <input type="checkbox" name="remember">
-                    Recordarme
+                    <span th:text="#{form.remember}">Recordarme</span>
                 </label>
-                <a href="#" class="forgot-password">Recuperar contraseña</a>
+                <a href="#" class="forgot-password" th:text="#{form.forgot}">Recuperar</a>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{btn.login}">
                 Iniciar Sesión
             </button>
             <div class="form-footer">
-                ¿Aún no tienes cuenta?
-                <a href="#" onclick="switchToRegister(); return false;">Crear una ahora</a>
+                <a href="#" onclick="switchToRegister(); return false;" th:text="#{link.no_account}">Crear cuenta</a>
             </div>
         </form>
     </div>
@@ -806,57 +765,47 @@
     <div class="modal-content">
         <span class="modal-close" onclick="closeRegisterModal()">&times;</span>
         <h2 class="modal-title">
-            <i class="fas fa-user-plus"></i> Nueva Cuenta
+            <i class="fas fa-user-plus"></i> <span th:text="#{modal.register.title}">Nueva Cuenta</span>
         </h2>
-        <form id="registerForm" class="auth-form">
+        <form id="registerForm" class="auth-form" th:action="@{/register}" method="post">
             <div class="form-group">
-                <label for="registerName">
-                    Nombre Completo
-                </label>
+                <label for="registerName" th:text="#{form.name}">Nombre</label>
                 <input type="text" id="registerName" name="name" required
-                       placeholder="Tu nombre">
+                       th:placeholder="#{form.name}">
             </div>
             <div class="form-group">
-                <label for="registerEmail">
-                    Correo Electrónico
-                </label>
+                <label for="registerEmail" th:text="#{form.email}">Correo</label>
                 <input type="email" id="registerEmail" name="email" required
-                       placeholder="ejemplo@correo.com">
+                       th:placeholder="#{form.email}">
             </div>
             <div class="form-group">
-                <label for="registerPassword">
-                    Contraseña
-                </label>
+                <label for="registerPassword" th:text="#{form.password}">Contraseña</label>
                 <input type="password" id="registerPassword" name="password" required
-                       placeholder="Mínimo 8 caracteres">
+                       th:placeholder="#{form.password}">
             </div>
             <div class="form-group">
-                <label for="registerConfirmPassword">
-                    Confirmar Contraseña
-                </label>
+                <label for="registerConfirmPassword" th:text="#{form.confirm}">Confirmar</label>
                 <input type="password" id="registerConfirmPassword" name="confirmPassword" required
-                       placeholder="Repite la contraseña">
+                       th:placeholder="#{form.confirm}">
             </div>
             <div class="form-group">
                 <label class="checkbox-label">
                     <input type="checkbox" name="terms" required>
-                    <span>Acepto los <a href="#" style="color: var(--primary-color);">términos y condiciones</a></span>
+                    <span th:text="#{form.terms}">Acepto los términos</span>
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-primary btn-block" th:text="#{btn.create}">
                 Crear Cuenta
             </button>
             <div class="form-footer">
-                ¿Ya estás registrado?
-                <a href="#" onclick="switchToLogin(); return false;">Accede aquí</a>
+                <a href="#" onclick="switchToLogin(); return false;" th:text="#{link.has_account}">Ya tengo cuenta</a>
             </div>
         </form>
     </div>
 </div>
 
 <script>
-    // Las funciones de JavaScript se mantienen exactamente igual que en tu versión original
-    // Modal Functions
+    // JS Logic for UI (Modal, Scroll) remains the same
     function openLoginModal() {
         document.getElementById('loginModal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -889,20 +838,13 @@
         return false;
     }
 
-    // Close modal when clicking outside
     window.onclick = function(event) {
         const loginModal = document.getElementById('loginModal');
         const registerModal = document.getElementById('registerModal');
-
-        if (event.target === loginModal) {
-            closeLoginModal();
-        }
-        if (event.target === registerModal) {
-            closeRegisterModal();
-        }
+        if (event.target === loginModal) closeLoginModal();
+        if (event.target === registerModal) closeRegisterModal();
     }
 
-    // Close modal with ESC key
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
             closeLoginModal();
@@ -910,44 +852,15 @@
         }
     });
 
-    // Smooth scroll
     function scrollToFeatures() {
-        document.getElementById('features').scrollIntoView({
-            behavior: 'smooth'
-        });
+        document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Show login required alert
     function showLoginRequired() {
-        alert('Para adquirir una licencia, por favor inicia sesión o regístrate.');
+        // You can also internationalize this alert via data attributes if needed
+        alert('Please login to continue / Por favor inicia sesión');
         openLoginModal();
     }
-
-    // Login Form Handler (Simulado)
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        // Aquí iría tu lógica de fetch real a Spring Boot
-        console.log("Intentando login...");
-        alert('Simulación: Inicio de sesión exitoso (conecta esto a tu backend)');
-        closeLoginModal();
-    });
-
-    // Register Form Handler (Simulado)
-    document.getElementById('registerForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const password = document.getElementById('registerPassword').value;
-        const confirmPassword = document.getElementById('registerConfirmPassword').value;
-
-        if (password !== confirmPassword) {
-            alert('Las contraseñas no coinciden');
-            return;
-        }
-         // Aquí iría tu lógica de fetch real a Spring Boot
-        console.log("Intentando registro...");
-        alert('Simulación: Registro exitoso. Por favor inicia sesión (conecta esto a tu backend)');
-        closeRegisterModal();
-        openLoginModal();
-    });
 </script>
 </body>
 </html>
